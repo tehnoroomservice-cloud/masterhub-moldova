@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<title>MasterHub Moldova</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#111;color:#fff;font-family:Arial,sans-serif}
+header{padding:20px;background:#191919;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:bold;color:#ffca05}
+.logo span{color:white}
+button{cursor:pointer}
+.login{background:#ffca05;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}
+.hero{padding:48px 20px 35px;text-align:center;background:linear-gradient(145deg,#242424,#111)}
+.hero h1{font-size:34px;margin:0 0 15px}
+.hero h1 span{color:#ffca05}
+.hero p{color:#bbb;line-height:1.6}
+.mainbtn{background:#ffca05;color:#111;border:0;padding:16px 25px;border-radius:10px;font-size:16px;font-weight:bold;margin-top:15px}
+section{padding:25px 18px}
+h2{font-size:23px}
+.categories{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.category{background:#222;border:1px solid #333;border-radius:12px;padding:20px 10px;text-align:center;color:white;font-size:15px}
+.category .emoji{font-size:30px;display:block;margin-bottom:10px}
+.category:focus,.category:hover{border-color:#ffca05}
+.info{background:#202020;margin:15px 18px;padding:20px;border-radius:12px}
+.info p{color:#bbb;line-height:1.5}
+footer{text-align:center;padding:25px;color:#888;font-size:13px}
+.modal{display:none;position:fixed;inset:0;background:#000c;align-items:center;justify-content:center;padding:15px}
+.modal-box{background:#222;padding:22px;border-radius:15px;width:100%;max-width:450px}
+input,textarea,select{width:100%;padding:13px;margin:8px 0 15px;background:#111;border:1px solid #444;border-radius:8px;color:white;font-size:15px}
+.close{float:right;background:none;color:white;border:0;font-size:24px}
+.submit{width:100%;background:#ffca05;border:0;padding:14px;border-radius:9px;font-weight:bold}
+@media(min-width:700px){.categories{grid-template-columns:repeat(4,1fr)}.hero{padding:75px 20px}.hero h1{font-size:48px}section{max-width:1100px;margin:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Master<span>Hub</span></div>
+  <button class="login" onclick="openForm()">Создать заявку</button>
+</header>
+
+<div class="hero">
+  <h1>Найдите своего <span>мастера</span></h1>
+  <p>Опишите задачу и получите предложения по цене от специалистов Кишинёва.</p>
+  <button class="mainbtn" onclick="openForm()">＋ Оставить заявку</button>
+</div>
+
+<section>
+  <h2>Популярные услуги</h2>
+  <div class="categories">
+    <button class="category" onclick="choose('Ремонт бытовой техники')"><span class="emoji">🔧</span>Ремонт техники</button>
+    <button class="category" onclick="choose('Сантехнические услуги')"><span class="emoji">🚰</span>Сантехника</button>
+    <button class="category" onclick="choose('Электрика')"><span class="emoji">⚡</span>Электрика</button>
+    <button class="category" onclick="choose('Строительные работы')"><span class="emoji">🛠️</span>Строительство</button>
+    <button class="category" onclick="choose('Уборка')"><span class="emoji">🧹</span>Уборка</button>
+    <button class="category" onclick="choose('Мебель')"><span class="emoji">🛋️</span>Мебель</button>
+    <button class="category" onclick="choose('Автоуслуги')"><span class="emoji">🚗</span>Автоуслуги</button>
+    <button class="category" onclick="choose('Перевозки')"><span class="emoji">🚚</span>Перевозки</button>
+  </div>
+</section>
+
+<div class="info">
+  <h2>Как это работает?</h2>
+  <p>1. Оставьте заявку на услугу.</p>
+  <p>2. Мастера предложат свои цены.</p>
+  <p>3. Сравните предложения и выберите специалиста.</p>
+  <p>4. Договоритесь о выполнении работы.</p>
+</div>
+
+<div class="modal" id="request">
+  <div class="modal-box">
+    <button class="close" onclick="closeForm()">×</button>
+    <h2>Новая заявка</h2>
+    <form onsubmit="sendRequest(event)">
+      <label>Услуга</label>
+      <select id="category" required>
+        <option value="">Выберите услугу</option>
+        <option>Ремонт бытовой техники</option>
+        <option>Сантехника</option>
+        <option>Электрика</option>
+        <option>Строительство</option>
+        <option>Уборка</option>
+        <option>Мебель</option>
+        <option>Автоуслуги</option>
+        <option>Перевозки</option>
+      </select>
+      <label>Опишите задачу</label>
+      <textarea id="description" placeholder="Что нужно сделать?" required></textarea>
+      <label>Ваш телефон</label>
+      <input id="phone" type="tel" placeholder="+373..." required>
+      <label>Район или адрес</label>
+      <input id="address" placeholder="Кишинёв..." required>
+      <button class="submit" type="submit">Отправить заявку</button>
+    </form>
+  </div>
+</div>
+
+<footer>MasterHub Moldova · Платформа услуг</footer>
+
+<script>
+function openForm(){
+ document.getElementById('request').style.display='flex';
+}
+function closeForm(){
+ document.getElementById('request').style.display='none';
+}
+function choose(value){
+ document.getElementById('category').value=value;
+ openForm();
+}
+function sendRequest(e){
+ e.preventDefault();
+ alert('Демонстрация: форма работает. Подключение реальной отправки заявок сделаем следующим этапом.');
+ closeForm();
+}
+</script>
+</body>
+</html>
