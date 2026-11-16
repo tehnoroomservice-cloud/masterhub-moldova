@@ -99,22 +99,39 @@ input,textarea,select{width:100%;padding:13px;margin:8px 0 15px;background:#111;
 
 <footer>MasterHub Moldova · Платформа услуг</footer>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL = 'https://exgfusyiyyegqozzodpv.supabase.co';
+
+const SUPABASE_KEY = 'sb_publishable_-9fWwaqivUNLzb4u2gOxAw_zpyppeAg';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+console.log('MasterHub: Supabase подключён');
+
 function openForm(){
- document.getElementById('request').style.display='flex';
+  document.getElementById('request').style.display='flex';
 }
+
 function closeForm(){
- document.getElementById('request').style.display='none';
+  document.getElementById('request').style.display='none';
 }
+
 function choose(value){
- document.getElementById('category').value=value;
- openForm();
+  document.getElementById('category').value=value;
+  openForm();
 }
+
 function sendRequest(e){
- e.preventDefault();
- alert('Демонстрация: форма работает. Подключение реальной отправки заявок сделаем следующим этапом.');
- closeForm();
+  e.preventDefault();
+  alert('Форма пока демонстрационная. Скоро подключим отправку заявок.');
+  closeForm();
 }
 </script>
+  
 </body>
 </html>
