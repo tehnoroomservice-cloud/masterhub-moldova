@@ -134,7 +134,39 @@ function sendRequest(e){
   alert('Форма пока демонстрационная. Скоро подключим отправку заявок.');
   closeForm();
 }
-</script>
+</script> async function openAuth(mode) {
+  const email = prompt('Введите ваш email:');
+  if (!email) return;
+
+  const password = prompt('Введите пароль:');
+  if (!password) return;
+
+  let result;
+
+  if (mode === 'register') {
+    result = await supabaseClient.auth.signUp({
+      email: email,
+      password: password
+    });
+  } else {
+    result = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+  }
+
+  if (result.error) {
+    alert('Ошибка: ' + result.error.message);
+    return;
+  }
+
+  alert(
+    mode === 'register'
+      ? 'Регистрация прошла! Проверьте почту, если потребуется подтверждение.'
+      : 'Вы успешно вошли!'
+  );
+}
+  
   
 </body>
 </html>
