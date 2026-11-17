@@ -38,7 +38,10 @@ input,textarea,select{width:100%;padding:13px;margin:8px 0 15px;background:#111;
 <body>
 <header>
   <div class="logo">Master<span>Hub</span></div>
-  <button class="login" onclick="openForm()">Создать заявку</button>
+  <div class="auth-buttons">
+  <button class="login" onclick="openAuth('login')">Войти</button>
+  <button class="login" onclick="openAuth('register')">Регистрация</button>
+</div>
 </header>
 
 <div class="hero">
